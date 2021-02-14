@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background: black;
+            color: white;
+            font-family: monospace;
+            margin: 0px;
+        }
+    </style>
+    <style>
+        .top-panel {
+            position: fixed;
+            overflow: hidden;
+            top: 0;
+            width: 100%;
+            vertical-align: middle;
+        }
+
+
+        .top-panel .major {
+            overflow: hidden;
+            background-color: #292929;
+            width: 100%;
+            padding: 2px;
+            border-bottom: 1px solid #3f3f3f;
+            vertical-align: middle;
+        }
+
+        .top-panel .minor {
+            overflow: hidden;
+            background-color: #1a1a1a;
+            width: 100%;
+            padding: 2px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #3f3f3f;
+            vertical-align: middle;
+            font-size: 12px;
+        }
+
+        .top-spacer {
+            margin-top: 90px;
+        }
+
+        .bottom-panel {
+            overflow: hidden;
+            background-color: #1a1a1a;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 2px;
+            vertical-align: middle;
+            border-top: 1px solid #3f3f3f;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        .title {
+            color: gray;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+    <style>
+
+        .table-with-head {
+            color: #6c6c6c;
+            width: 100%;
+            margin-bottom: 10px;
+            word-break: break-word;
+        }
+
+        .table-with-head th {
+            background: #323232;
+        }
+
+        .table-with-head td {
+            text-align: center;
+            border-bottom: 1px solid #323232;
+            border-top: hidden;
+        }
+
+        .table-with-head tr {
+            border-top: 1px solid red;
+        }
+
+    </style>
+    <style>
+        .heading-1 {
+            color: #525252;
+            font-family: monospace;
+            font-size: 22px;
+        }
+
+        .heading-2 {
+            color: #525252;
+            font-family: monospace;
+            font-size: 18px;
+        }
+
+        .heading-3 {
+            color: #525252;
+            font-family: monospace;
+            font-size: 14px;
+        }
+    </style>
+    <style type="text/css">
+        .reference {
+            position: relative;
+            text-decoration: none;
+        }
+
+        .tooltip {
+            display: inline-block;
+        }
+
+        .reference .tooltip-box {
+            display: block;
+            visibility: hidden;
+            min-width: 100px;
+            text-align: left;
+            border-radius: 0px;
+            padding: 4px;
+            top: -5px;
+            text-decoration: none;
+
+            background-color: black;
+            color: #575757;
+            border: 1px solid #3c3c3c;
+
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 99991;
+        }
+
+        .reference .tooltip-box.right {
+            left: 99%;
+        }
+
+        .reference .tooltip-box.left {
+            right: 99%;
+        }
+
+        .reference:hover .tooltip-box {
+            visibility: visible;
+        }
+    </style>
+    <style>
+        .table-without-head {
+            color: white;
+            width: 100%;
+            margin-bottom: 10px;
+            border: 0px solid gray;
+            font-family: monospace;
+            table-layout: fixed;
+            text-align: left;
+            border-collapse: collapse;
+            word-break: break-word;
+        }
+
+        .table-without-head tr {
+            border: 0 solid black;
+
+        }
+
+        .table-without-head td {
+            border: 0 solid black;
+            border-right: 0 solid black;
+            border-left: 0 solid black;
+
+        }
+
+        .table-without-head a {
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+    </style>
+    <style>
+        .box {
+            font-weight: bold;
+            color: black;
+            padding: 2px;
+            margin-left: 3px;
+            margin-bottom: 1px;
+            margin-top: 1px;
+            width: fit-content;
+            display: inline-block;
+        }
+
+        .box a {
+            color: black;
+            text-decoration: none;
+        }
+
+    </style>
+
+    <!------------------------------------------------------------------------------>
+    <!-------------------------------- C O L O R ----------------------------------->
+    <!------------------------------------------------------------------------------>
+
+    <style>
+    /* ============================================ RED ============================================ */
+        tr.red {
+            border-top: 1px solid #ff0000;
+            border-bottom: 1px solid #ff0000;
+            background: #8c0000;
+        }
+
+        tr.red.dark {
+            background: #200000;
+        }
+
+        .box.red {
+            border: 1px solid #ff0000;
+            background: #8c0000;
+        }
+
+        .box.red .reference .tooltip-box {
+            border: 1px solid #ff0000;
+        }
+
+        .box.red .modal-box > div {
+            border: 2px solid #ff0000;
+        }
+
+        .box.red .modal-head {
+            background-color: #8c0000;
+        }
+
+        .red-text {
+            color: #ff0000;
+        }
+
+    </style>
+
+
+    <style>
+    /* ============================================ GREEN ============================================ */
+        tr.green {
+            border-top: 1px solid #00ff00;
+            border-bottom: 1px solid #00ff00;
+            background: #008c00;
+        }
+
+        tr.green.dark {
+            background: #002000;
+        }
+
+        .box.green {
+            border: 1px solid #00ff00;
+            background: #008c00;
+        }
+
+        .box.green .reference .tooltip-box {
+            border: 1px solid #00ff00;
+        }
+
+        .box.green .modal-box > div {
+            border: 2px solid #00ff00;
+        }
+
+        .box.green .modal-head {
+            background-color: #008c00;
+        }
+
+        .green-text {
+            color: #00ff00;
+        }
+
+    </style>
+
+
+    <style>
+    /* ============================================ BLUE ============================================ */
+        tr.blue {
+            border-top: 1px solid #0000ff;
+            border-bottom: 1px solid #0000ff;
+            background: #0000bf;
+        }
+
+        tr.blue.dark {
+            background: #000020;
+        }
+
+        .box.blue {
+            border: 1px solid #0000ff;
+            background: #0000bf;
+        }
+
+        .box.blue .reference .tooltip-box {
+            border: 1px solid #0000ff;
+        }
+
+        .box.blue .modal-box > div {
+            border: 2px solid #0000ff;
+        }
+
+        .box.blue .modal-head {
+            background-color: #0000bf;
+        }
+
+        .blue-text {
+            color: #0000ff;
+        }
+
+    </style>
+
+
+    <style>
+    /* ============================================ YELLOW ============================================ */
+        tr.yellow {
+            border-top: 1px solid #ffff00;
+            border-bottom: 1px solid #ffff00;
+            background: #8c8c00;
+        }
+
+        tr.yellow.dark {
+            background: #202000;
+        }
+
+        .box.yellow {
+            border: 1px solid #ffff00;
+            background: #8c8c00;
+        }
+
+        .box.yellow .reference .tooltip-box {
+            border: 1px solid #ffff00;
+        }
+
+        .box.yellow .modal-box > div {
+            border: 2px solid #ffff00;
+        }
+
+        .box.yellow .modal-head {
+            background-color: #8c8c00;
+        }
+
+        .yellow-text {
+            color: #ffff00;
+        }
+
+    </style>
+
+
+    <style>
+    /* ============================================ GRAY ============================================ */
+        tr.gray {
+            border-top: 1px solid #525252;
+            border-bottom: 1px solid #525252;
+            background: #272727;
+        }
+
+        .box.gray {
+            border: 1px solid #525252;
+            background: #272727;
+        }
+
+        .box.gray .reference .tooltip-box {
+            border: 1px solid #525252;
+        }
+
+        .box.gray .modal-box > div {
+            border: 2px solid #525252;
+        }
+
+        .box.gray .modal-head {
+            background-color: #272727;
+        }
+
+        .gray-text {
+            color: #525252;
+        }
+
+    </style>
+
+
+    <style>
+    /* ============================================ DARK-GRAY ============================================ */
+        tr.dark-gray {
+            border-top: 1px solid #424242;
+            border-bottom: 1px solid #424242;
+            background: #151515;
+        }
+
+        .box.dark-gray {
+            border: 1px solid #424242;
+            background: #151515;
+        }
+
+        .box.dark-gray .reference .tooltip-box {
+            border: 1px solid #424242;
+        }
+
+        .box.dark-gray .modal-box > div {
+            border: 2px solid #424242;
+        }
+
+        .box.dark-gray .modal-head {
+            background-color: #151515;
+        }
+
+        .dark-gray-text {
+            color: #424242;
+        }
+
+    </style>
+
+
+    <style>
+    /* ============================================ VIOLET ============================================ */
+        tr.violet {
+            border-top: 1px solid #ff00ff;
+            border-bottom: 1px solid #ff00ff;
+            background: #8c008c;
+        }
+
+        tr.violet.dark {
+            background: #200020;
+        }
+
+        .box.violet {
+            border: 1px solid #ff00ff;
+            background: #8c008c;
+        }
+
+        .box.violet .reference .tooltip-box {
+            border: 1px solid #ff00ff;
+        }
+
+        .box.violet .modal-box > div {
+            border: 2px solid #ff00ff;
+        }
+
+        .box.violet .modal-head {
+            background-color: #8c008c;
+        }
+
+        .violet-text {
+            color: #ff00ff;
+        }
+
+    </style>
+
+
+    <style>
+    /* ============================================ ORANGE ============================================ */
+        tr.orange {
+            border-top: 1px solid #ffcb16;
+            border-bottom: 1px solid #ffcb16;
+            background: #cb7b00;
+        }
+
+        tr.orange.dark {
+            background: #200f00;
+        }
+
+        .box.orange {
+            border: 1px solid #ffcb16;
+            background: #cb7b00;
+        }
+
+        .box.orange .reference .tooltip-box {
+            border: 1px solid #ffcb16;
+        }
+
+        .box.orange .modal-box > div {
+            border: 2px solid #ffcb16;
+        }
+
+        .box.orange .modal-head {
+            background-color: #cb7b00;
+        }
+
+        .orange-text {
+            color: #ffcb16;
+        }
+
+    </style>
+
+
+    <style>
+    /* ============================================ PINK ============================================ */
+        tr.pink {
+            border-top: 1px solid #ff81cf;
+            border-bottom: 1px solid #ff81cf;
+            background: #c63e7d;
+        }
+
+        tr.pink.dark {
+            background: #200d10;
+        }
+
+        .box.pink {
+            border: 1px solid #ff81cf;
+            background: #c63e7d;
+        }
+
+        .box.pink .reference .tooltip-box {
+            border: 1px solid #ff81cf;
+        }
+
+        .box.pink .modal-box > div {
+            border: 2px solid #ff81cf;
+        }
+
+        .box.pink .modal-head {
+            background-color: #c63e7d;
+        }
+
+        .pink-text {
+            color: #ff81cf;
+        }
+
+    </style>
+
+
+    <style>
+    /* ============================================ CYAN ============================================ */
+        tr.cyan {
+            border-top: 1px solid #31fffc;
+            border-bottom: 1px solid #31fffc;
+            background: #00b1b4;
+        }
+
+        tr.cyan.dark {
+            background: #001f20;
+        }
+
+        .box.cyan {
+            border: 1px solid #31fffc;
+            background: #00b1b4;
+        }
+
+        .box.cyan .reference .tooltip-box {
+            border: 1px solid #31fffc;
+        }
+
+        .box.cyan .modal-box > div {
+            border: 2px solid #31fffc;
+        }
+
+        .box.cyan .modal-head {
+            background-color: #00b1b4;
+        }
+
+        .cyan-text {
+            color: #31fffc;
+        }
+
+    </style>
+
+
+    <style>
+    /* ============================================ NAVY ============================================ */
+        tr.navy {
+            border-top: 1px solid #394eba;
+            border-bottom: 1px solid #394eba;
+            background: #2f3f7f;
+        }
+
+        tr.navy.dark {
+            background: #0f1020;
+        }
+
+        .box.navy {
+            border: 1px solid #394eba;
+            background: #2f3f7f;
+        }
+
+        .box.navy .reference .tooltip-box {
+            border: 1px solid #394eba;
+        }
+
+        .box.navy .modal-box > div {
+            border: 2px solid #394eba;
+        }
+
+        .box.navy .modal-head {
+            background-color: #2f3f7f;
+        }
+
+        .navy-text {
+            color: #394eba;
+        }
+
+    </style>
+
+
+    <style>
+    /* ============================================ MINK ============================================ */
+        tr.mink {
+            border-top: 1px solid #bab2ad;
+            border-bottom: 1px solid #bab2ad;
+            background: #7f7772;
+        }
+
+        tr.mink.dark {
+            background: #201b1a;
+        }
+
+        .box.mink {
+            border: 1px solid #bab2ad;
+            background: #7f7772;
+        }
+
+        .box.mink .reference .tooltip-box {
+            border: 1px solid #bab2ad;
+        }
+
+        .box.mink .modal-box > div {
+            border: 2px solid #bab2ad;
+        }
+
+        .box.mink .modal-head {
+            background-color: #7f7772;
+        }
+
+        .mink-text {
+            color: #bab2ad;
+        }
+
+    </style>
+
+
+    <style>
+    /* ============================================ TORTILA ============================================ */
+        tr.tortila {
+            border-top: 1px solid #ecc890;
+            border-bottom: 1px solid #ecc890;
+            background: #997950;
+        }
+
+        tr.tortila.dark {
+            background: #20170f;
+        }
+
+        .box.tortila {
+            border: 1px solid #ecc890;
+            background: #997950;
+        }
+
+        .box.tortila .reference .tooltip-box {
+            border: 1px solid #ecc890;
+        }
+
+        .box.tortila .modal-box > div {
+            border: 2px solid #ecc890;
+        }
+
+        .box.tortila .modal-head {
+            background-color: #997950;
+        }
+
+        .tortila-text {
+            color: #ecc890;
+        }
+
+    </style>
+
+
+    <style>
+    /* ============================================ FLAX ============================================ */
+        tr.flax {
+            border-top: 1px solid #ffed8f;
+            border-bottom: 1px solid #ffed8f;
+            background: #b5a35b;
+        }
+
+        tr.flax.dark {
+            background: #201d0f;
+        }
+
+        .box.flax {
+            border: 1px solid #ffed8f;
+            background: #b5a35b;
+        }
+
+        .box.flax .reference .tooltip-box {
+            border: 1px solid #ffed8f;
+        }
+
+        .box.flax .modal-box > div {
+            border: 2px solid #ffed8f;
+        }
+
+        .box.flax .modal-head {
+            background-color: #b5a35b;
+        }
+
+        .flax-text {
+            color: #ffed8f;
+        }
+
+    </style>
+
+
+<!------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------>
+
+     <style>
+        .low-text {
+            color: #424242;
+        }
+
+        tr.separator {
+            /*border-top: 1px solid #424242;
+            border-bottom: 1px solid #424242;*/
+            background: #151515;
+            color: #5d5d5d;
+            font-size: 20px;
+            text-align: center;
+        }
+
+    </style>
+
+    <style>
+        td.line-number-column {
+            text-align: center;
+            color: #747474;
+        }
+
+        td.collapse-column {
+            text-align: center;
+        }
+
+        td.collapse-column a {
+            text-decoration: none;
+            color: #5c5c5c;
+        }
+
+
+    </style>
+
+
+    <style>
+        /* ============================================ MODAL ============================================ */
+        .modal-box {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99999;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .modal-box:target {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box > div {
+            width: 90%;
+            position: relative;
+            margin: 3% auto;
+        }
+
+        .modal-head {
+            position: relative;
+            top: 0px;
+            width: 100%;
+        }
+
+        .modal-title {
+            font-size: 19px;
+            padding-left: 5px;
+        }
+
+        .modal-close-button a {
+            font-size: 19px;
+            font-size: bold;
+            text-decoration: none;
+            background: inherit;
+            float: right;
+            padding-right: 5px;
+        }
+
+        .modal-row-view {
+            position: relative;
+            width: 100%;
+            background-color: #222222;
+            color: #5c5c5c;
+            padding-left: 0px;
+            font-weight: bold;
+        }
+
+        .modal-row-view-align {padding-left: 5px}
+
+        .modal-row-content {
+            padding-left: 5px;
+        }
+
+        .modal-content {
+            padding-left: 5px;
+            padding-right: 5px;
+            background: black;
+            color: white;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .modal-content img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <style>
+        .hidden-row1 {
+            color: #525252;
+        }
+    </style>
+
+
+    <style>
+        /* ============================================ TOGGELING DIV ============================================*/
+        .toggling-div {
+            width: 100%;
+            display: none;
+        }
+
+        input:checked ~ .toggling-div {
+            display: block;
+        }
+
+        .toggling-div2 {
+            width: 100%;
+            display: block;
+        }
+
+        input:checked ~ .toggling-div2 {
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+</body>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $(".toggler").click(function (e) {
+            e.preventDefault();
+            $(this).toggleClass("expand");
+            var className = 'hidden-row' + $(this).attr('data-prod-hidden-row');
+            var $current = $(this).closest('tr').next();
+            while ($current.hasClass(className)) {
+                if ($(this).hasClass("expand")) {
+                    $current.show();
+                    $current = $current.next();
+                }
+                else {
+                    $current.hide();
+                    $current = $current.next();
+                }
+
+            }
+
+        });
+        $('.x').click(function (e) {
+            e.preventDefault();
+            var className = 'hidden-row' + $(this).attr('data-prod-hidden-row');
+            $(this).closest('tr').prev().toggle();
+            $(this).closest('tr').hide(); //
+        });
+    });
+</script>
+
+</html>

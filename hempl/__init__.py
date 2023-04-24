@@ -4,9 +4,10 @@ import base64
 import io
 from PIL import Image
 
-def render(template, renders):
-    body = "\n".join([str(render) for render in renders])
-    return template.replace("</body>", f"{body}</body>")
+def render(template, body_renders, page_title=""):
+    body = "\n".join([str(render) for render in body_renders])
+    tmp = template.replace("<title>Title</title>", f"<title>{page_title}</title>")
+    return tmp.replace("</body>", f"{body}</body>")
 
 
 def save(html, path):
@@ -16,7 +17,7 @@ def save(html, path):
 
 def read_standard_template(name):
     d = os.path.dirname(__file__)
-    td = os.path.join(os.path.dirname(d), "template")
+    td = os.path.join(d, "template")
     t = os.path.join(td, f"{name}.html")
 
     with open(t, "r") as f:

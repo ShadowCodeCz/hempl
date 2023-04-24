@@ -18,7 +18,7 @@ description = "HTML Template"
 
 setup(
     name='hempl',
-    version='0.1',
+    version='0.1.1',
     packages=find_packages(),
     package_data={
         "hempl": ['*', '*/*', '*/*/*', '*/*/*/*'],
